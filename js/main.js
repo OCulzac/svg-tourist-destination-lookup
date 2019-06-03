@@ -18,12 +18,29 @@ const searchDestinations = async searchText => {
     });
     /* Prevent entire array from showing when input is empty */
     if (searchText.length === 0) {
-        matches = []
+        matches = [];
+        matchList.innerHTML = '';
     }
 
-
+    /* Show Results in HTML */
+    outputHtml(matches);
 };
 
+/* Show Results in HTML */
+const outputHtml = matches => {
+    if (matches.length > 0) {
+        const html = matches.map(match => `
+            <div class='card card-body mb-1'>
+                <h4>${match.name} (${match.abbr}) <span class="text-primary">${match.location}</span></h4>
+                <small>Side of the island: ${match.side}</small>
+                <small>Distance from Capital: ${match.distance} km / ${match.drive} mins</small>
+
+            </div>    
+        `
+        ).join('');
+        matchList.innerHTML = html;
+    }
+};
 
 /* Fire off event whenever typing in the input box */
 search.addEventListener('input', () => searchDestinations(search.value));
