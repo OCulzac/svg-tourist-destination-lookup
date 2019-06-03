@@ -16,8 +16,12 @@ const searchDestinations = async searchText => {
         /* return and array that matches the regex */
         return destination.location.match(regex) || destination.side.match(regex);
     });
+    /* Prevent entire array from showing when input is empty */
+    if (searchText.length === 0) {
+        matches = []
+    }
 
-    console.log(matches);
+
 };
 
 
