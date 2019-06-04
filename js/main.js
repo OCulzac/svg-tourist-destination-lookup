@@ -1,6 +1,9 @@
 /* Grap DOM elements */
 const search = document.getElementById('search');
 const matchList = document.getElementById('match-list');
+const image = document.getElementById("image");
+
+
 let destinations;
 
 /* get destinations.json and filter it */
@@ -9,6 +12,10 @@ const getDestinations = async () => {
     const res = await fetch('../data/destinations.json');
     destinations = await res.json();
 };
+
+function isEmpty(str) {
+    return !str.replace(/\s+/, '').length;
+}
 
 /* Filter destinations */
 const searchDestinations = searchText => {
@@ -51,3 +58,11 @@ const outputHtml = matches => {
 window.addEventListener('DOMContentLoaded', getDestinations);
 /* Fire off event whenever typing in the input box */
 search.addEventListener('input', () => searchDestinations(search.value));
+
+search.addEventListener('input', function () {
+    if (isEmpty(this.value)) {
+        image.style.display = "block";
+    } else {
+        image.style.display = "none";
+    }
+});
